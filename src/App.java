@@ -10,6 +10,8 @@ public class App {
     private static Table table;
     // max actions
     final private static int nbAction = 10;
+    // visible passwords
+    private static boolean lock = false;
 
     /** Execute l'action associée à l'entier en entrée
      * @param choice l'entier désignant une action du menu
@@ -29,9 +31,12 @@ public class App {
                 break;
 
             case 2:
-                System.out.println("En cours de développement");
+                table.setConnexion();
                 break;
    
+            case 3:
+                lock = !lock;
+                break;
             default:
                 Traitement.messErr("Numéro d'action invalide !");
                 break;
@@ -41,14 +46,24 @@ public class App {
     /** Affiche le menu des actions
      */
     public static void afficheMenu() {
+        String lockOrNot;
+        String symb;
+        if(lock == false) {
+            lockOrNot = "    3- Masquer les mots de passe \n";
+            symb = "not lock";
+        } else {
+            lockOrNot = "    3- Visualiser les mots de passe \n";
+            symb = "lock";
+        }
         String s = "############################### Menu ################################## \n"
-                 + "    1- Ajouter une connexion \n"
+                 + "    1- Ajouter une connexion                            " + symb +"\n"
                  + "    2- Modifier une connexion \n"
+                 + lockOrNot
                  + "    0- Arrêter";
         System.out.println(s);
     }
 
-
+    
     public static void main(String[] args) throws Exception {
         System.out.println();
         System.out.println("==================== GESTIONNAIRE DE MOTS DE PASSE ====================");
@@ -58,8 +73,9 @@ public class App {
         table = new Table();
     
         while(!stop) {
-            table.showTable();
+            table.showTable(lock);
             afficheMenu();
+            System.out.print("=> ");
             String getScan = sc.nextLine();
             action(Traitement.validNumber(getScan, -1, nbAction));
             System.out.println("=======================================================================");     
