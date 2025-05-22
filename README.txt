@@ -16,4 +16,5 @@ Exemple :
 
 /========== Fonctionnalités à ajouter ==========/ 
 => visibilité ou non des mots de passe
-=> cryptage des données en fichier de sauvegarde
+=> lecture d'un fichier et manipulation de l'information
+=> écriture et cryptage des données en fichier de sauvegarde

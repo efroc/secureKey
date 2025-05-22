@@ -10,6 +10,10 @@ public class Table {
         myTable = new ArrayList<>();
     }
 
+    public Table(ArrayList<Triple<String,String,String>> newTable) {
+        myTable = newTable;
+    }
+
     // getters setters
     public ArrayList<Triple<String,String,String>> getTable() {
         return this.myTable;
@@ -99,21 +103,14 @@ public class Table {
     /** Affichage de myTable
      */
     public void showTable(boolean lock) {
-        String password;
         if(getTable().isEmpty()) {
             System.out.println("La table ne contient pas d'éléments !");
         } else {
             for(int i = 0; i < getTable().size(); i++) {
                 Triple<String, String, String> myTriple = getTable().get(i);
-                if(lock == true) {
-                    password = "********";
-                } else {
-                    password = myTriple.getThird();
-                }
-                System.out.println(i + " | " + myTriple.getFirst() + " | " + myTriple.getSecond()
-                                     + " | " + password); 
+                System.out.println(i + " | " + myTriple.toString(lock)); 
             }
-        }
+        }  
         System.out.println();
     }   
 }

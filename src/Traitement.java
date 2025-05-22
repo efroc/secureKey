@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Traitement {
 
     /** Affiche le message souhaité en console
@@ -5,6 +7,7 @@ public class Traitement {
      */
     public static void messErr(String msg) {
         System.out.println("Erreur : " + msg);
+        System.exit(0);
     }
 
     /** Selon un intervalle de numéros d'action, renvoie l'action
@@ -26,5 +29,27 @@ public class Traitement {
         } catch(NumberFormatException e) {
             return -1;
         }
+    }
+
+    /** Selon une chaine de caractères contenant une ou plusieurs fois un séparateur donné, 
+     *  donne la liste des sous-chaines
+     * 
+     * @param s la chaine d'entrée
+     * @param sep le séparateur
+     * @return la liste des mots séparés par sep
+     */
+    public static ArrayList<String> stringToSubstring(String s, char sep) {
+        ArrayList<String> substring = new ArrayList<>();
+        String subWord = "";
+        for(int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) == sep) {
+                substring.add(subWord);
+                subWord = "";
+            } else {
+                subWord += s.charAt(i);
+            }
+        }
+        substring.add(subWord);
+        return substring;
     }
 }

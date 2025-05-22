@@ -4,6 +4,9 @@ public class Triple<A, B, C> {
     private B second;
     private C third;
 
+    public Triple() {
+    }
+
     public Triple(A fst, B snd, C thd) {
         this.first = fst;
         this.second = snd;
@@ -34,9 +37,14 @@ public class Triple<A, B, C> {
         this.third = thd;
     }
 
-    @Override
-    public String toString() {
-        return "("+ this.first +","+ this.second +","+ this.third +")";
+    public String toString(boolean lock) {
+        String s;
+        if(lock == true) {
+            s = "********";
+        } else {
+            s = this.third.toString();
+        }
+        return "("+ this.first +","+ this.second +","+ s +")";
     }
 
     @Override

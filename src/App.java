@@ -12,6 +12,8 @@ public class App {
     final private static int nbAction = 10;
     // visible passwords
     private static boolean lock = false;
+    // save file
+    private static Lecture file = new Lecture();
 
     /** Execute l'action associée à l'entier en entrée
      * @param choice l'entier désignant une action du menu
@@ -37,6 +39,15 @@ public class App {
             case 3:
                 lock = !lock;
                 break;
+
+            case 4:
+                file.affiche();
+                break;
+
+            case 6:
+                System.out.println("Nombre d'éléments : "+table.getTable().size());
+                break;
+
             default:
                 Traitement.messErr("Numéro d'action invalide !");
                 break;
@@ -59,6 +70,7 @@ public class App {
                  + "    1- Ajouter une connexion                            " + symb +"\n"
                  + "    2- Modifier une connexion \n"
                  + lockOrNot
+                 + "    4- Afficher le contenu du fichier de sauvegarde \n"
                  + "    0- Arrêter";
         System.out.println(s);
     }
@@ -70,8 +82,8 @@ public class App {
         
         sc = new Scanner(System.in);
         stop = false;
-        table = new Table();
-    
+        table = new Table(file.dataToTriple());
+
         while(!stop) {
             table.showTable(lock);
             afficheMenu();
