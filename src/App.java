@@ -2,18 +2,30 @@ import java.util.Scanner;
 
 public class App {
 
+
+    /************* VARGLOBALES ***************/
+
+    // read file
+    private static Lecture readFile = new Lecture();
+    // write file
+    private static Ecriture writeFile = new Ecriture();
+    // table des connexions
+    private static Table table;
     // scanner actions
     private static Scanner sc;
-    // stop loop
-    private static boolean stop;
-    // table
-    private static Table table;
-    // max actions
-    final private static int nbAction = 10;
+
+
     // visible passwords
     private static boolean lock = false;
-    // save file
-    private static Lecture file = new Lecture();
+    // stop loop
+    private static boolean stop;
+    // max actions
+    final private static int nbAction = 10;
+    // false pour affichage console, true pour interface graphique
+    final private static boolean affichage = false;
+    
+    /******************************************/
+
 
     /** Execute l'action associée à l'entier en entrée
      * @param choice l'entier désignant une action du menu
@@ -25,6 +37,7 @@ public class App {
                 break;
 
             case 0:
+                writeFile.tripleToData(table.getTable());
                 stop = true;
                 break;
             
@@ -41,11 +54,7 @@ public class App {
                 break;
 
             case 4:
-                file.affiche();
-                break;
-
-            case 6:
-                System.out.println("Nombre d'éléments : "+table.getTable().size());
+                writeFile.tripleToData(table.getTable());
                 break;
 
             default:
@@ -70,28 +79,32 @@ public class App {
                  + "    1- Ajouter une connexion                            " + symb +"\n"
                  + "    2- Modifier une connexion \n"
                  + lockOrNot
-                 + "    4- Afficher le contenu du fichier de sauvegarde \n"
+                 + "    4- Sauvegarder les changements \n"
                  + "    0- Arrêter";
         System.out.println(s);
     }
 
     
     public static void main(String[] args) throws Exception {
-        System.out.println();
-        System.out.println("==================== GESTIONNAIRE DE MOTS DE PASSE ====================");
-        
-        sc = new Scanner(System.in);
-        stop = false;
-        table = new Table(file.dataToTriple());
+        if(!affichage) {
+            System.out.println();
+            System.out.println("==================== GESTIONNAIRE DE MOTS DE PASSE ====================");
+            
+            sc = new Scanner(System.in);
+            stop = false;
+            table = new Table(readFile.dataToTriple());
 
-        while(!stop) {
-            table.showTable(lock);
-            afficheMenu();
-            System.out.print("=> ");
-            String getScan = sc.nextLine();
-            action(Traitement.validNumber(getScan, -1, nbAction));
-            System.out.println("=======================================================================");     
-        }
-        sc.close();
+            while(!stop) {
+                table.showTable(lock);
+                afficheMenu();
+                System.out.print("=> ");
+                String getScan = sc.nextLine();
+                action(Traitement.validNumber(getScan, -1, nbAction));
+                System.out.println("=======================================================================");     
+            }
+            sc.close();
+        } else {
+            // interface graphique
+        }   
     }
 }
