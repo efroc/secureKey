@@ -1,6 +1,15 @@
 package app;
 import java.util.Scanner;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
 import classes.Traitement;
 import classes.Ecriture;
 import classes.Lecture;
@@ -9,7 +18,7 @@ import classes.Table;
 public class App {
 
 
-    /************* VARGLOBALES ***************/
+    /********************** VARGLOBALES **************************/
 
     // read file
     private static Lecture readFile = new Lecture();
@@ -28,9 +37,10 @@ public class App {
     // max actions
     final private static int nbAction = 10;
     // false pour affichage console, true pour interface graphique
-    final private static boolean affichage = false;
+    final private static boolean affichage = true;
     
-    /******************************************/
+    
+    /******************* FONCTIONS CONSOLE *************************/
 
 
     /** Execute l'action associée à l'entier en entrée
@@ -90,7 +100,38 @@ public class App {
         System.out.println(s);
     }
 
-    
+    /***************** FONCTIONS INTERFACE *******************/
+
+    public static JMenuBar createMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        
+        // menu Fichier
+        JMenu menuFichier = new JMenu("Fichier");
+        JMenuItem itemSauvegarder = new JMenuItem("Sauvegarder");
+        JMenuItem itemOuvrir = new JMenuItem("Ouvrir un nouveau fichier");
+        JMenuItem itemQuitter = new JMenuItem("Quitter");
+
+        menuFichier.add(itemSauvegarder);
+        menuFichier.add(itemOuvrir);
+        menuFichier.addSeparator();
+        menuFichier.add(itemQuitter);
+
+        // menu Actions
+        JMenu menuActions = new JMenu("Actions");
+        JMenuItem itemAjouter = new JMenuItem("Ajouter une connexion");
+
+        menuActions.add(itemAjouter);
+
+        // actions cliquables
+        itemQuitter.addActionListener(e -> System.exit(0));
+
+        // Ajouter au menu
+        menuBar.add(menuFichier);
+        menuBar.add(menuActions);
+        return menuBar;
+    }
+
+    /************************ MAIN ***************************/
     public static void main(String[] args) throws Exception {
         if(!affichage) {
             System.out.println();
@@ -110,7 +151,26 @@ public class App {
             }
             sc.close();
         } else {
-            // interface graphique
+            // creation fenetre
+            JFrame myWindow = new JFrame("SecureKey");
+            // taille de la fenetre
+            myWindow.setSize(800, 600);
+            //centrer la fenetre
+            myWindow.setLocationRelativeTo(null);
+            // barre de menu
+            JMenuBar menu = createMenu();
+            myWindow.setJMenuBar(menu);
+            // jpanel general
+            JPanel generalPanel = new JPanel();
+            generalPanel.setBounds(0, 0, 800, 600);
+            generalPanel.setBackground(Color.lightGray);
+            generalPanel.setLayout(new BoxLayout(generalPanel, BoxLayout.X_AXIS));
+
+            myWindow.add(generalPanel);
+            // croix pour quitter
+            myWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            // rendre visible
+            myWindow.setVisible(true);
         }   
     }
 }
