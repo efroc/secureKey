@@ -1,4 +1,10 @@
+package app;
 import java.util.Scanner;
+
+import classes.Traitement;
+import classes.Ecriture;
+import classes.Lecture;
+import classes.Table;
 
 public class App {
 
