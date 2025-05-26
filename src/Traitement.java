@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Traitement {
 
-    /** Affiche le message souhaité en console
+    /** Affiche le message souhaité en console et termine le programme
      * @param msg le message d'erreur souhaité
      */
     public static void messErr(String msg) {
