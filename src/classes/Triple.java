@@ -6,6 +6,7 @@ public class Triple<A, B, C> {
     private B second;
     private C third;
 
+    /********* Constructeurs *********/
     public Triple() {
     }
 
@@ -15,6 +16,7 @@ public class Triple<A, B, C> {
         this.third = thd;
     }
 
+    /********* Getters-Setters ********/
     public A getFirst() {
         return this.first;
     }
@@ -39,14 +41,9 @@ public class Triple<A, B, C> {
         this.third = thd;
     }
 
-    public String toString(boolean lock) {
-        String s;
-        if(lock == true) {
-            s = "********";
-        } else {
-            s = this.third.toString();
-        }
-        return "("+ this.first +","+ this.second +","+ s +")";
+    /************ Fonctions *************/
+    public String toString() {
+        return " | " + this.first + " | Username : " + this.second + " | Password : " + this.third;
     }
 
     @Override

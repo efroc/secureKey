@@ -11,6 +11,16 @@ public class Traitement {
         System.exit(0);
     }
 
+    public static int scanToNumber(String getScan) {
+        int result;
+        try {
+            result = Integer.parseInt(getScan);
+            return result;
+        } catch(NumberFormatException e) {
+            return -1;
+        }
+    }
+
     /** Selon un intervalle de numéros d'action, renvoie l'action
      * à exécuter selon la chaine de caractères en entrée
      * 

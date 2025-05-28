@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 public class Lecture {
     
-    private String nomFichier = "data.txt";
+    private String nomFichier;
+
+    public Lecture(String nF) {
+        this.nomFichier = nF;
+    }
 
     public void affiche() {
         try {

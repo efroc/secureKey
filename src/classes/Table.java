@@ -103,13 +103,13 @@ public class Table {
 
     /** Affichage de myTable
      */
-    public void showTable(boolean lock) {
+    public void showTable() {
         if(getTable().isEmpty()) {
             System.out.println("La table ne contient pas d'éléments !");
         } else {
             for(int i = 0; i < getTable().size(); i++) {
                 Triple<String, String, String> myTriple = getTable().get(i);
-                System.out.println(i + " | " + myTriple.toString(lock)); 
+                System.out.println(i + " | " + myTriple.toString()); 
             }
         }  
         System.out.println();

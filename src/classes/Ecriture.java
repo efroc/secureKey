@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 public class Ecriture {
     
-    private String nomFichier = "data.txt";
+    private String nomFichier;
+
+    public Ecriture(String nF) {
+        this.nomFichier = nF;
+    }
 
     public void tripleToData(ArrayList<Triple<String,String,String>> table) {
         String fstWord = ""; 
