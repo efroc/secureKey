@@ -52,20 +52,22 @@ public class Lecture {
             Traitement.messErr("Impossible de trouver le fichier de sauvegarde !");
         } 
         // obtention des triplets
-        ArrayList<String> triplets = Traitement.stringToSubstring(allData, '#');
-        for(int i = 0; i < triplets.size(); i++) {   
-            Triple<String,String,String> newTriple = new Triple<>();
-            ArrayList<String> triple = Traitement.stringToSubstring(triplets.get(i), ';');
-            // erreur si trop d'elements (triplet)
-            if(triple.size() > 3) {
-                Traitement.messErr("Fichier corrompu, la donnée est trop longue !");
+        if(allData.length() != 0) {
+            ArrayList<String> triplets = Traitement.stringToSubstring(allData, '#');
+            for(int i = 0; i < triplets.size(); i++) {   
+                Triple<String,String,String> newTriple = new Triple<>();
+                ArrayList<String> triple = Traitement.stringToSubstring(triplets.get(i), ';');
+                // erreur si trop d'elements (triplet)
+                if(triple.size() > 3) {
+                    Traitement.messErr("Fichier corrompu, la donnée est trop longue !");
+                }
+                // ajout dans la table
+                newTriple.setFirst(triple.get(0));
+                newTriple.setSecond(triple.get(1));
+                newTriple.setThird(triple.get(2));
+                table.add(newTriple);
             }
-            // ajout dans la table
-            newTriple.setFirst(triple.get(0));
-            newTriple.setSecond(triple.get(1));
-            newTriple.setThird(triple.get(2));
-            table.add(newTriple);
-        }
+        } 
         return table;
     }
 }

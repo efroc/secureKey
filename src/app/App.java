@@ -13,7 +13,7 @@ public class App {
     /********************** VARGLOBALES **************************/
 
     // file list in save repository
-    private static ArrayList<String> fileList = new ArrayList<>();
+    private static ArrayList<String> fileList;
     // file name
     private static String nomFichier;
     // read file
@@ -33,7 +33,7 @@ public class App {
     /*********************** Fonctions console *************************/
     public static void listerFichiers() {
         File dossier = new File(System.getProperty("user.dir")+"\\save");
-
+        fileList = new ArrayList<>(); 
         if (dossier.exists() && dossier.isDirectory()) {
             File[] fichiers = dossier.listFiles();
 
@@ -51,8 +51,18 @@ public class App {
         }
     }   
 
-    
+    // TODO
+    public static void creerFichier() {
+        File dossier = new File(System.getProperty("user.dir")+"\\save");
+        if (dossier.exists() && dossier.isDirectory()) {
+            
+        } else {
+            Traitement.messErr("Le chemin spécifié n'est pas un dossier valide.");
+        }
+    }
+
     public static void choixFichier() {
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════");
         afficheArrayString(fileList);
         System.out.println("║ Choix du fichier :");
         sc = new Scanner(System.in);
@@ -69,6 +79,7 @@ public class App {
         nomFichier = fileList.get(idFile);
         readFile = new Lecture(nomFichier);
         writeFile = new Ecriture(nomFichier);
+        table = new Table(readFile.dataToTriple());
     }
 
 
@@ -98,6 +109,7 @@ public class App {
             case 2:
                 listerFichiers();
                 choixFichier();
+                afficheTable(table.getTable());
                 break;
 
             default:
@@ -110,18 +122,19 @@ public class App {
 
     /***************** Fonctions affichage ********************/
     public static void afficheTable(ArrayList<Triple<String,String,String>> myTable) {
-        System.out.println("║_____________________________________________________________________________");
+        System.out.println("║═════════════════════════════════════════════════════════════════════════════");
         System.out.println("║ Table des connexions : ");
         afficheArrayTriple(myTable);
     }
 
 
     public static void afficheMenu() {
-        System.out.println("║_____________________________________________________________________________");
-        System.out.println("║                 MENU");
-        System.out.println("║ 0- Quitter        3- Ajouter une connexion\n"
-                          +"║ 1- Sauvegarder    4- Modifier une connexion\n"
-                          +"║ 2- Changer de fichier de sauvegarde");
+        System.out.println("║═════════════════════════════════════════════════════════════════════════════");
+        System.out.println("║ MENU :");
+        System.out.println("║ 0- Quitter                                4- Ajouter une connexion\n"
+                          +"║ 1- Sauvegarder                            5- Modifier une connexion\n"
+                          +"║ 2- Changer de fichier de sauvegarde       6- Supprimer une connexion\n"
+                          +"║ 3- Créer une nouvelle sauvegarde");
     }
 
 
