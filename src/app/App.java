@@ -51,6 +51,7 @@ public class App {
         }
     }   
 
+
     // TODO
     public static void creerFichier() {
         File dossier = new File(System.getProperty("user.dir")+"\\save");
@@ -60,6 +61,7 @@ public class App {
             Traitement.messErr("Le chemin spécifié n'est pas un dossier valide.");
         }
     }
+
 
     public static void choixFichier() {
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════");
@@ -112,6 +114,25 @@ public class App {
                 afficheTable(table.getTable());
                 break;
 
+            case 4:
+                ajouterConnexion();
+                afficheTable(table.getTable());
+                break;
+
+            case 5:
+                modifierConnexion();
+                afficheTable(table.getTable());
+                break;
+
+            case 6:
+                supprimerConnexion();
+                afficheTable(table.getTable());
+                break;
+
+            case 7:
+                afficheTable(table.getTable());
+                break;
+
             default:
                 System.out.println("Ce numéro d'action n'a pas été codé !");
                 break;
@@ -119,8 +140,46 @@ public class App {
     }
     
 
+    public static void ajouterConnexion() {
+        String entity, username, password;
+        do {
+            entity = Traitement.getScan("Entrez le nom de l'entité");
+        } while(!Traitement.goodFormat(entity));
+        do {
+            username = Traitement.getScan("Entrez votre username");
+        } while(!Traitement.goodFormat(username));
+        do {
+            password = Traitement.getScan("Entrez votre password");
+        } while(!Traitement.goodFormat(password));
+        table.getTable().add(new Triple<String,String,String>(entity, username, password));
+    }
+
+
+    public static void modifierConnexion() {
+
+    }
+
+
+    public static void supprimerConnexion() {
+        int iSup;
+        do {
+            iSup = Traitement.scanToNumber(Traitement.getScan("Entrez la connexion à supprimer"));
+        } while(iSup < 0 || iSup > table.getTable().size()-1);
+        table.getTable().remove(iSup);
+    }
+
+
+    
 
     /***************** Fonctions affichage ********************/
+    public static void afficheProg() {
+        System.out.println();
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════╗");                                             
+        System.out.println("║                         GESTIONNAIRE DE MOTS DE PASSE                      ║");                                         
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════╝");
+    }
+
+
     public static void afficheTable(ArrayList<Triple<String,String,String>> myTable) {
         System.out.println("║═════════════════════════════════════════════════════════════════════════════");
         System.out.println("║ Table des connexions : ");
@@ -154,36 +213,16 @@ public class App {
 
     /************************* Main ***************************/
     public static void main(String[] args) throws Exception {
-        /* 
-        System.out.println();
-        System.out.println("==================== GESTIONNAIRE DE MOTS DE PASSE ====================");
-            
-        sc = new Scanner(System.in);
-        stop = false;
-        table = new Table(readFile.dataToTriple());
-
-        while(!stop) {
-            table.showTable(lock);
-            afficheMenu();
-            System.out.print("=> ");
-            String getScan = sc.nextLine();
-            action(Traitement.validNumber(getScan, -1, nbAction));
-            System.out.println("=======================================================================");     
-        }
-        sc.close();
-        */
         
         // init
-        System.out.println();
-        System.out.println("╔════════════════════════════════════════════════════════════════════════════╗");                                             
-        System.out.println("║                         GESTIONNAIRE DE MOTS DE PASSE                      ║");                                         
-        System.out.println("╚════════════════════════════════════════════════════════════════════════════╝");
+        afficheProg();
         // choix du fichier de sauvegarde (lecture et ecriture)
         listerFichiers();
         choixFichier();
         // init table et affichage de la table des mots de passe
         table = new Table(readFile.dataToTriple());
         afficheTable(table.getTable());
+        // tant qu'on ne quitte pas
         while(!stop) {
             afficheMenu();
             choixMenu();

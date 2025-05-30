@@ -1,15 +1,14 @@
 package classes;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Traitement {
 
-    /** Affiche le message souhaité en console et termine le programme
-     * @param msg le message d'erreur souhaité
-     */
     public static void messErr(String msg) {
         System.out.println("Erreur : " + msg);
         System.exit(0);
     }
+
 
     public static int scanToNumber(String getScan) {
         int result;
@@ -21,34 +20,34 @@ public class Traitement {
         }
     }
 
-    /** Selon un intervalle de numéros d'action, renvoie l'action
-     * à exécuter selon la chaine de caractères en entrée
-     * 
-     * @param getScan la chaine de caractère sortie du Scanner
-     * @param min le numéro d'action minimal compris
-     * @param max le numéro d'action maximal compris
-     * @return le numéro d'action à exécuter, -1 si invalide
-     */
-    public static int validNumber(String getScan, int min, int max) {
-        int choice;
-        try {
-            choice = Integer.parseInt(getScan);
-            if(choice < min || choice > max) {
-                return -1;
-            }
-            return choice;
-        } catch(NumberFormatException e) {
-            return -1;
-        }
+
+    public static boolean correctNumberAction(int number, int maxAction) {
+        return (number >= 0 && number <= maxAction);
     }
 
-    /** Selon une chaine de caractères contenant une ou plusieurs fois un séparateur donné, 
-     *  donne la liste des sous-chaines
-     * 
-     * @param s la chaine d'entrée
-     * @param sep le séparateur
-     * @return la liste des mots séparés par sep
-     */
+
+    public static String getScan(String message) {
+        System.out.println("║ " + message + " :");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("║ => ");
+        String input = sc.nextLine();
+        while(!Traitement.goodFormat(input)) {
+            System.out.println("L'entrée ne doit pas contenir de ; ou de # !");
+            System.out.print("║ => ");
+            input = sc.nextLine();
+        }
+        return input;
+    }
+
+
+    public static boolean goodFormat(String getScan) {
+        if(contains(getScan, ';') || contains(getScan, '#')) {
+            return false;
+        }
+        return true;
+    }
+
+
     public static ArrayList<String> stringToSubstring(String s, char sep) {
         ArrayList<String> substring = new ArrayList<>();
         if(s.length() == 0) {
@@ -67,11 +66,7 @@ public class Traitement {
         return substring;
     }
 
-    /**
-     * @param word le mot
-     * @param c le caractère
-     * @return true si word contient c, sinon false
-     */
+   
     public static boolean contains(String word, char c) {
         for(int i = 0; i < word.length(); i++) {
             if(word.charAt(i) == c) {
