@@ -31,3 +31,6 @@ Ps : ce n'est toujours pas implémenté
 Ce sera sûrement un décalage dans le code ASCII pour convertir chaque
 caractère en un autre.
 A voir...
+
+/============================ Versions =============================/
+=> Futur développement de la V2 en PHP et CSS pour utilisation WEB
