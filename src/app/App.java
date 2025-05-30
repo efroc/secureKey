@@ -62,7 +62,7 @@ public class App {
         }
     }
 
-
+    // TODO à modifier avec fonction de Traitement
     public static void choixFichier() {
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════");
         afficheArrayString(fileList);
@@ -84,7 +84,7 @@ public class App {
         table = new Table(readFile.dataToTriple());
     }
 
-
+    // TODO à modifier avec fonction de Traitement
     public static void choixMenu() {
         // on recupere le choix de l'utilisateur
         sc = new Scanner(System.in);
@@ -212,8 +212,7 @@ public class App {
 
 
     /************************* Main ***************************/
-    public static void main(String[] args) throws Exception {
-        
+    public static void main(String[] args) throws Exception {  
         // init
         afficheProg();
         // choix du fichier de sauvegarde (lecture et ecriture)
