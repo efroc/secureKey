@@ -51,6 +51,9 @@ public class Traitement {
      */
     public static ArrayList<String> stringToSubstring(String s, char sep) {
         ArrayList<String> substring = new ArrayList<>();
+        if(s.length() == 0) {
+            return substring;
+        }
         String subWord = "";
         for(int i = 0; i < s.length(); i++) {
             if(s.charAt(i) == sep) {
@@ -64,6 +67,11 @@ public class Traitement {
         return substring;
     }
 
+    /**
+     * @param word le mot
+     * @param c le caractère
+     * @return true si word contient c, sinon false
+     */
     public static boolean contains(String word, char c) {
         for(int i = 0; i < word.length(); i++) {
             if(word.charAt(i) == c) {
